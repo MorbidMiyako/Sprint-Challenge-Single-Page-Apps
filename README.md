@@ -27,7 +27,7 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ]  Explain benefit(s) using `client-side routing`?
 
-> Answer:
+> Answer: the main benefits are that files are preloaded and only used when they are needed, lowering the resources needed for the site usage.
 
 ## Project Set Up
 
