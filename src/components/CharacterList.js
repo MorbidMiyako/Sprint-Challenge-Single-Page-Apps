@@ -18,19 +18,35 @@ export default function CharacterList() {
     margin: 0, auto;
   `
 
+  let characterArray = [];
+
   useEffect(() => {
 
-    axios
-      .get("https://rickandmortyapi.com/api/character/")
-      .then(res => {
-        console.log(res, "axios full response")
-        console.log(res.data.results, "throwing into setCharacters")
-        setCharacters(res.data.results)
-        setSearchCharacters(res.data.results)
-      })
-      .catch(err => console.log(err))
-    // TODO: Add API Request here - must run in `useEffect`
-    //  Important: verify the 2nd `useEffect` parameter: the dependancies array!
+    for (let i = 0; i < 26; i++) {
+      axios
+        .get(`https://rickandmortyapi.com/api/character/?page=${i}`)
+        .then(res => {
+          res.data.results.forEach((i) => {
+            characterArray.push(i)
+            return (
+              characterArray
+            )
+          })
+        })
+        .catch(err => console.log(err))
+      // TODO: Add API Request here - must run in `useEffect`
+      //  Important: verify the 2nd `useEffect` parameter: the dependancies array!
+      console.log(characterArray, "this is charactersArray after for")
+      setCharacters(characterArray)
+      setSearchCharacters(characterArray)
+      console.log(characters, "this is characters after for")
+    }
+    setTimeout(() => {
+      console.log(characterArray)
+      setCharacters(characterArray)
+      setSearchCharacters(characterArray)
+      console.log(characters, "this is characters")
+    }, 1000)
   }, []);
 
   useEffect(() => {
