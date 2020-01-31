@@ -6,6 +6,8 @@ export default function CharacterList() {
   // TODO: Add useState to track data from useEffect
   const [characters, setCharacters] = useState([]);
 
+  const [query, setQuery] = useState("");
+
   useEffect(() => {
 
     axios
@@ -20,13 +22,37 @@ export default function CharacterList() {
     //  Important: verify the 2nd `useEffect` parameter: the dependancies array!
   }, []);
 
+  useEffect(() => {
+    const display = characters.filter(character => character.name.toLowerCase().includes(query.toLowerCase()))
+    setCharacters(display)
+  }, [query]);
+
+  const handleInputChange = event => {
+    setQuery(event.target.value)
+  }
+
   return (
-    <section className="character-list">
-      {characters.map(character => {
-        return (
-          <CharacterCard character={character} key={character.id} />
-        )
-      })}
-    </section>
+    <>
+      <section className="search">
+        <form>
+          <input
+            type="text"
+            onChange={handleInputChange}
+            value={query}
+            name="name"
+            tabIndex="0"
+            placeholder="search by name"
+            autoComplete="off"
+          />
+        </form>
+      </section>
+      <section className="character-list">
+        {characters.map(character => {
+          return (
+            <CharacterCard character={character} key={character.id} />
+          )
+        })}
+      </section>
+    </>
   );
 }
